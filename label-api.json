@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://<your-function-name>.azurewebsites.net/api"
+      "url": "https://sap-label-func.azurewebsites.net/api"
     }
   ],
   "paths": {
