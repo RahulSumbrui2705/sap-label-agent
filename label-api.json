@@ -1,0 +1,72 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Label Printing API",
+    "description": "Proxy API to print SAP shipping labels",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://<your-function-name>.azurewebsites.net/api"
+    }
+  ],
+  "paths": {
+    "/printLabel": {
+      "post": {
+        "operationId": "printLabel",
+        "summary": "Print a shipping label",
+        "description": "Calls Azure Function which handles SAP BTP label printing",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrintRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Label printed successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PrintRequest": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "CONF_NO": { "type": "string" },
+              "MATNO": { "type": "string" },
+              "BATCH": { "type": "string" },
+              "HU": { "type": "integer" },
+              "RSRC": { "type": "string" },
+              "GEN_VARIANT": { "type": "string" },
+              "COPIES": { "type": "integer" },
+              "PRINTER": { "type": "string" },
+              "REPRINT": { "type": "string" },
+              "WEIGHT_LBS": { "type": "string" },
+              "WEIGHT_KGS": { "type": "string" },
+              "DOM": { "type": "string", "format": "date-time" },
+              "SOURCE_SCREEN": { "type": "string" },
+              "LOC": { "type": "string" }
+            },
+            "required": ["HU", "MATNO", "GEN_VARIANT"]
+          }
+        }
+      }
+    }
+  }
+}
